@@ -1,0 +1,68 @@
+[build-system]
+requires = ["setuptools>=68.0", "wheel"]
+build-backend = "setuptools.backends._legacy:_Backend"
+
+[project]
+name = "entropy-tracker"
+version = "1.0.0"
+description = "A Code Aging & Decay Tracker — measures software entropy per module using git analysis, dependency drift, churn ratios, and knowledge decay signals."
+readme = "README.md"
+license = {text = "MIT"}
+requires-python = ">=3.11"
+authors = [
+    {name = "Entropy Team"},
+]
+keywords = ["entropy", "code-aging", "decay", "technical-debt", "git-analysis"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Software Development :: Quality Assurance",
+]
+
+dependencies = [
+    "pydriller>=2.6",
+    "gitpython>=3.1",
+    "typer[all]>=0.9",
+    "rich>=13.0",
+    "fastapi>=0.104",
+    "uvicorn[standard]>=0.24",
+    "sqlalchemy>=2.0",
+    "asyncpg>=0.29",
+    "psycopg2-binary>=2.9",
+    "celery[redis]>=5.3",
+    "redis>=5.0",
+    "httpx>=0.25",
+    "tomli>=2.0;python_version<'3.11'",
+    "numpy>=1.26",
+    "pydantic>=2.5",
+    "pydantic-settings>=2.1",
+    "alembic>=1.13",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.4",
+    "pytest-asyncio>=0.23",
+    "black>=23.0",
+    "ruff>=0.1",
+]
+
+[project.scripts]
+entropy = "entropy.cli:app"
+
+[tool.setuptools.packages.find]
+include = ["entropy*"]
+
+[tool.ruff]
+line-length = 120
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "N", "W"]
+
+[tool.black]
+line-length = 120
+target-version = ["py311"]

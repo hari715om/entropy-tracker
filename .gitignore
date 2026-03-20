@@ -1,0 +1,51 @@
+# Entropy
+
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+dist/
+build/
+.eggs/
+*.egg
+
+# Virtual env
+.venv/
+venv/
+ENV/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Database
+entropy.db
+*.sqlite3
+
+# Node
+node_modules/
+dashboard/dist/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Environment
+.env
+.env.local
+
+# Logs
+*.log
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Mypy / Ruff
+.mypy_cache/
+.ruff_cache/
+
+ENTROPY_PLAN.md

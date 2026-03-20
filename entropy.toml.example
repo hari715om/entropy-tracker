@@ -1,0 +1,28 @@
+[repo]
+name = "my-service"
+path = "/path/to/repo"
+language = "python"  # python | javascript | mixed
+
+[scoring.weights]
+knowledge = 0.35
+dependency = 0.30
+churn = 0.20
+age = 0.15
+
+[scoring.thresholds]
+critical = 85
+high = 70
+medium = 50
+
+[analysis]
+active_author_window_days = 180      # 6 months
+refactor_net_line_threshold = 10     # max net lines for refactor classification
+churn_line_threshold = 50            # min line delta for churn classification
+age_ceiling_months = 36              # months at which age score = 100
+
+[scheduler]
+scan_interval_hours = 24
+
+[alerts]
+notify_on = ["CRITICAL", "HIGH"]
+webhook_url = ""  # optional Slack/Discord webhook

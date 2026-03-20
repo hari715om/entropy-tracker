@@ -1,0 +1,64 @@
+# Entropy — Local Development
+# Usage: docker compose up
+
+services:
+  postgres:
+    image: timescale/timescaledb:latest-pg15
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: entropy
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: entropy
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  api:
+    build: .
+    command: uvicorn entropy.api.main:app --host 0.0.0.0 --port 8000 --reload
+    ports:
+      - "8000:8000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: postgresql://postgres:entropy@postgres:5432/entropy
+      REDIS_URL: redis://redis:6379/0
+    volumes:
+      - ./entropy:/app/entropy
+      - ./repos:/repos  # mount repos to scan
+
+  celery:
+    build: .
+    command: celery -A entropy.tasks.celery_app worker --beat -l info
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: postgresql://postgres:entropy@postgres:5432/entropy
+      REDIS_URL: redis://redis:6379/0
+    volumes:
+      - ./entropy:/app/entropy
+      - ./repos:/repos
+
+volumes:
+  postgres_data:
