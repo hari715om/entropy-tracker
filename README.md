@@ -155,9 +155,9 @@ Entropy's focus is not code quality. It is the risk that comes from **a module n
 
 ---
 
-## Live Demo
+<!-- ## Live Demo
 
-**[entropy.kwixlab.com](https://entropy.kwixlab.com)** - pre-loaded scans of Django, FastAPI, and boto. No login required.
+**[entropy.kwixlab.com](https://entropy.kwixlab.com)** - pre-loaded scans of Django, FastAPI, and boto. No login required. -->
 
 ---
 
