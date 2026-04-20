@@ -799,7 +799,7 @@ def _get_primary_fault(s) -> str:
         "Knowledge Decay": s.knowledge_score,
         "Legacy code": s.age_score,
         "High Churn": s.churn_score,
-        "Dependancy Drift": s.dep_score,
+        "Dependency Drift": s.dep_score,
     }
     primary = max(factors, key=lambda k: factors[k])
     if factors[primary] < 20:
